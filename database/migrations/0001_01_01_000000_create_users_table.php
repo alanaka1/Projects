@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\{Schema, Hash, DB};
 
 return new class extends Migration
 {
@@ -14,27 +14,59 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('surname');
             $table->string('email')->unique();
+            $table->string('username')->unique();
+            $table->string('image')->nullable();
+            $table->string('gender');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedTinyInteger('status')->default(1);
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+        // Schema::create('password_reset_tokens', function (Blueprint $table) {
+        //     $table->string('email')->primary();
+        //     $table->string('token');
+        //     $table->timestamp('created_at')->nullable();
+        // });
 
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
-        });
+        // Schema::create('sessions', function (Blueprint $table) {
+        //     $table->string('id')->primary();
+        //     $table->foreignId('user_id')->nullable()->index();
+        //     $table->string('ip_address', 45)->nullable();
+        //     $table->text('user_agent')->nullable();
+        //     $table->longText('payload');
+        //     $table->integer('last_activity')->index();
+        // });
+
+        DB::table('users')->insert(
+            array([
+                'name'          => 'Mahmoud',
+                'surname'       => 'AMIN',
+                'username'      => 'Mahmoud',
+                'image'         => null,
+                'email'         => 'Mahmoud@admin.com',
+                'password'      => Hash::make('12345678'),
+                'gender'        => 'male',
+                'status'        => 1,
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ],[
+                'name'          => 'User',
+                'surname'       => 'User',
+                'username'      => 'User',
+                'image'         => null,
+                'email'         => 'User@admin.com',
+                'password'      => Hash::make('12345678'),
+                'gender'        => 'female',
+                'status'        => 1,
+                'created_at'    => now(),
+                'updated_at'    => now(),
+            ]),
+        );
     }
 
     /**
