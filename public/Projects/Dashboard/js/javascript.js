@@ -592,12 +592,35 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
 
-            info.textContent =
-                total === 0
+            (() => {
 
-                    ? "Showing 0 to 0 of 0 entries"
+                const locale =
+                    document.documentElement.lang?.toLowerCase().startsWith("ar")
+                        ? "ar"
+                        : "en";
 
-                    : `Showing ${start + 1} to ${end} of ${total} entries`;
+                const translations = {
+                    ar: {
+                        showing: "عرض",
+                        to: "إلى",
+                        of: "من",
+                        users: "مستخدم"
+                    },
+                    en: {
+                        showing: "Showing",
+                        to: "to",
+                        of: "of",
+                        users: "users"
+                    }
+                };
+
+                const t = translations[locale];
+
+                return total === 0
+                    ? `${t.showing} 0 ${t.to} 0 ${t.of} 0 ${t.users}`
+                    : `${t.showing} ${start + 1} ${t.to} ${end} ${t.of} ${total} ${t.users}`;
+
+            })();
 
         }
 

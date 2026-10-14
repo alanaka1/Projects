@@ -15,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->get();
+        // $users = User::orderBy('id', 'DESC')->get();
+        $users = User::orderBy('id', 'DESC')->paginate(10);
         return view('Projects.Auth.User.index', compact('users'));
     }
 
@@ -70,9 +71,9 @@ class UserController extends Controller
 
             User::create($data);
             
-                return redirect(route('users.index'))->with(['success' => 'تمت إضافة المستخدم بنجاح']);
+                return redirect(route('users.index'))->with(['success' => __('Auth/users.created_successfully')]);
             }catch(\Exception $ex){
-                return redirect(route('users.index'))->with(['error' => 'حدثت مشكلة أثناء إضافة المستخدم']);
+                return redirect(route('users.index'))->with(['error' => __('Auth/users.create_error')]);
         }
     }
 
@@ -84,7 +85,7 @@ class UserController extends Controller
         $user = User::find($user);
 
         if (!$user) {
-            return redirect(route('users.index'))->with(['error' => 'المستخدم المطلوب غير موجود']);
+            return redirect(route('users.index'))->with(['error' => __('Auth/users.not_found')]);
         }
 
         return view('Projects.Auth.User.show',compact('user'));
@@ -98,7 +99,7 @@ class UserController extends Controller
         $user = User::find($user);
 
         if (!$user) {
-            return redirect(route('users.index'))->with(['error' => 'المستخدم المطلوب غير موجود']);
+            return redirect(route('users.index'))->with(['error' => __('Auth/users.not_found')]);
         }
 
         return view('Projects.Auth.User.form', compact('user'));
@@ -112,7 +113,7 @@ class UserController extends Controller
         try{
             $user = User::find($user);
             if(!$user){
-                return redirect(route('users.index'))->with(['error' => 'المستخدم المطلوب غير موجود']);
+                return redirect(route('users.index'))->with(['error' => __('Auth/users.not_found')]);
             }
             $data = $request->validated();
             // $data = $request->only(['name', 'surname', 'username', 'email', 'password', 'status', 'gender']);
@@ -157,9 +158,9 @@ class UserController extends Controller
 
             $user->update($data);
     
-            return redirect(route('users.index'))->with(['success' => 'تم تعديل المستخدم بنجاح']);
+            return redirect(route('users.index'))->with(['success' => __('Auth/users.updated_successfully')]);
         }catch(\Exception $ex){
-            return redirect(route('users.index'))->with(['error' => 'حدثت مشكلة أثناء تعديل المستخدم']);
+            return redirect(route('users.index'))->with(['error' => __('Auth/users.update_error')]);
         }
     }
 
@@ -172,13 +173,13 @@ class UserController extends Controller
 
             $user = User::find($user);
             if (!$user) {
-                return redirect(route('users.index'))->with(['error' => 'المستخدم المطلوب غير موجود']);
+                return redirect(route('users.index'))->with(['error' => __('Auth/users.not_found')]);
             }
             
             $user->delete();
-            return redirect(route('users.index'))->with(['success' => 'تم نقل المستخدم إلى سلة المحذوفات بنجاح']);
+            return redirect(route('users.index'))->with(['success' => __('Auth/users.deleted_successfully')]);
         } catch (\Exception $ex) {
-            return redirect(route('users.index'))->with(['error' => 'حدثت مشكلة أثناء حذف المستخدم']);
+            return redirect(route('users.index'))->with(['error' => __('Auth/users.delete_error')]);
         }
     }
 
@@ -202,14 +203,14 @@ class UserController extends Controller
             $user = User::onlyTrashed()->find($user);
 
             if (!$user) {
-                return redirect(route('users.trash'))->with(['error' => 'المستخدم المطلوب غير موجود في سلة المحذوفات']);
+                return redirect(route('users.trash'))->with(['error' => __('Auth/users.not_found_trash')]);
             }
 
             $user->restore();
 
-            return redirect(route('users.trash'))->with(['success' => 'تم استرجاع المستخدم بنجاح']);
+            return redirect(route('users.trash'))->with(['success' => __('Auth/users.restored_successfully')]);
         } catch (\Exception $ex) {
-            return redirect(route('users.trash'))->with(['error' => 'حدثت مشكلة أثناء استرجاع المستخدم']);
+            return redirect(route('users.trash'))->with(['error' => __('Auth/users.restore_error')]);
         }
     }
 
@@ -224,7 +225,7 @@ class UserController extends Controller
             $user = User::onlyTrashed()->find($user);
 
             if (!$user) {
-                return redirect(route('users.trash'))->with(['error' => 'المستخدم المطلوب غير موجود في سلة المحذوفات']);
+                return redirect(route('users.trash'))->with(['error' => __('Auth/users.not_found_trash')]);
             }
 
             // التحقق من ارتباط المستخدم بأي Role
@@ -243,9 +244,9 @@ class UserController extends Controller
             // الحذف النهائي
             $user->forceDelete();
 
-            return redirect(route('users.trash'))->with(['success' => 'تم حذف المستخدم نهائيًا']);
+            return redirect(route('users.trash'))->with(['success' => __('Auth/users.force_deleted_successfully')]);
         } catch (\Exception $ex) {
-            return redirect(route('users.trash'))->with(['error' => 'تم حذف المستخدم نهائيًا']);
+            return redirect(route('users.trash'))->with(['error' => __('Auth/users.force_delete_error')]);
         }
     }
 
@@ -257,7 +258,7 @@ class UserController extends Controller
         try {
             $user = User::find($user);
             if (!$user) {
-                return redirect(route('users.index'))->with(['error' => 'المستخدم المطلوب غير موجود']);
+                return redirect(route('users.index'))->with(['error' => __('Auth/users.not_found')]);
             }
 
             // حذف ملف الصورة من public
@@ -271,9 +272,9 @@ class UserController extends Controller
             // حذف مسار الصورة من Database
             $user->update(['image' => null]);
 
-            return redirect(route('users.edit', $user->id))->with(['success' => 'تم حذف صورة المستخدم بنجاح']);
+            return redirect(route('users.edit', $user->id))->with(['success' => __('Auth/users.image_deleted_successfully')]);
         } catch (\Exception $ex) {
-            return redirect(route('users.edit', $user->id))->with(['error' => 'حدثت مشكلة أثناء حذف الصورة']);
+            return redirect(route('users.edit', $user->id))->with(['error' => __('Auth/users.remove_image_error')]);
         }
     }
 
@@ -286,9 +287,9 @@ class UserController extends Controller
 
             $user->update(['status' => $user->status == 1 ? 0 : 1,]);
 
-            return redirect(route('users.index'))->with(['success' => $user->status == 1 ? 'تم تفعيل المستخدم بنجاح' : 'تم تعطيل المستخدم بنجاح']);
+            return redirect(route('users.index'))->with(['success' => $user->status == 1 ? __('Auth/users.enable_successfully') : __('Auth/users.disable_successfully'),]);
         } catch (\Exception $ex) {
-            return redirect(route('users.index'))->with(['error' => 'حدثت مشكلة أثناء تغيير حالة المستخدم']);
+            return redirect(route('users.index'))->with(['error' => __('Auth/users.change_status_error')]);
         }
     }
 }

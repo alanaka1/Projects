@@ -19,21 +19,21 @@
     </div>
 
     <nav class="sidebar-nav">
-        <div class="nav-section-title">MAIN</div>
-        <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa-solid fa-house"></i><span>لوحة التحكم Dashboard</span></a>
-        <a href="#" class="sidebar-link"><i class="fa-solid fa-chart-line"></i><span>Analytics</span></a>
+        <div class="nav-section-title">@lang('All.main')</div>
+        <a href="{{ route('dashboard') }}" class="sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"><i class="fa-solid fa-house"></i><span>@lang('All.dashboard')</span></a>
+        <!-- <a href="#" class="sidebar-link"><i class="fa-solid fa-chart-line"></i><span>Analytics</span></a> -->
 
         <button class="sidebar-link sidebar-dropdown-toggle {{ $authOpen ? 'active' : 'collapsed' }}" type="button" data-bs-toggle="collapse" data-bs-target="#AuthenticationMenu" aria-expanded="{{ $authOpen ? 'true' : 'false' }}">
             <!-- data-bs-target="#AuthenticationMenu" -->
             <span class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-user-lock"></i>
-                <span class="">Authentication</span>
+                <span class="">@lang('All.authentication')</span>
             </span>
             <i class="fa-solid fa-chevron-down submenu-arrow"></i>
         </button>
         <div class="collapse sidebar-submenu {{ $authOpen ? 'show' : '' }}" id="AuthenticationMenu">
             <!-- id="AuthenticationMenu" -->
-            <a href="{{ route('users.index') }}" class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span class="ms-2">Users</span></a>
+            <a href="{{ route('users.index') }}" class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span class="ms-2">@lang('Auth/users.title')</span></a>
         </div>
 
 
