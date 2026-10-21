@@ -130,16 +130,20 @@
         <div class="custom-table-footer mt-3">
             <div id="ordersInfo" class="custom-table-info">
                 @lang('All.showing')
-                    {{ $users->firstItem() ?? 0 }}
+                {{ $users->isNotEmpty() ? 1 : 0 }}
+
                 @lang('All.to')
-                    {{ $users->lastItem() ?? 0 }}
+                {{ $users->count() }}
+
                 @lang('All.of')
-                    {{ $users->total() }}
+                {{ $users->count() }}
+
                 @lang('Auth/users.number_active_users')
             </div>
-            <nav><ul id="ordersPagination" class="pagination pagination-sm mb-0">{{ $users->links() }}</ul></nav>
+            <!-- <div id="ordersInfo" class="custom-table-info"></div>
+            <nav><ul id="ordersPagination" class="pagination pagination-sm mb-0"></ul></nav> -->
         </div>
-
+        
         
     </div>
 </section>

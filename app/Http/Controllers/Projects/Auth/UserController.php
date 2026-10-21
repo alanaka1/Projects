@@ -15,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $users = User::orderBy('id', 'DESC')->get();
-        $users = User::orderBy('id', 'DESC')->paginate(10);
+        $users = User::orderBy('id', 'DESC')->get();
+        // $users = User::orderBy('id', 'DESC')->paginate(10);
         return view('Projects.Auth.User.index', compact('users'));
     }
 

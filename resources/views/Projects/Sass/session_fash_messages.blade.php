@@ -1,3 +1,4 @@
+{{-- Success Message --}}
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
         {{ session('success') }}
@@ -5,6 +6,7 @@
     </div>
 @endif
 
+{{-- Error Message --}}
 @if(session('error'))
     <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
         {{ session('error') }}

@@ -1,5 +1,5 @@
 @php
-    $authOpen = request()->routeIs('users.*');
+    $authOpen = request()->routeIs('users.*') || $authOpen = request()->routeIs('roles.*');
 @endphp
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
@@ -34,6 +34,7 @@
         <div class="collapse sidebar-submenu {{ $authOpen ? 'show' : '' }}" id="AuthenticationMenu">
             <!-- id="AuthenticationMenu" -->
             <a href="{{ route('users.index') }}" class="sidebar-link {{ request()->routeIs('users.*') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span class="ms-2">@lang('Auth/users.title')</span></a>
+            <a href="{{ route('roles.index') }}" class="sidebar-link {{ request()->routeIs('roles.*') ? 'active' : '' }}"><i class="fa-solid fa-user"></i><span class="ms-2">@lang('Auth/roles.title')</span></a>
         </div>
 
 

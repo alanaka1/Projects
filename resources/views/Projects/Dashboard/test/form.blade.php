@@ -32,6 +32,8 @@
         </button>
     </div>
 
+    <!-- @include('Projects.Sass.validation_errors') -->
+
     <div class="p-3 p-md-4">
         <form id="orderForm" action="" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="row g-3">

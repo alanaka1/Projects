@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Projects\Auth\UserController;
+use App\Http\Controllers\Projects\Auth\{UserController, RoleController};
 use Illuminate\Support\Facades\{Route, Auth};
 
 Route::get('/', function () {
@@ -38,4 +38,18 @@ Route::group(['prefix' => 'users', 'as' => 'users.', 'controller' => UserControl
     Route::post('{id}/restore', 'restore')->name('restore');
     Route::delete('{id}/force-destroy', 'forceDestroy')->name('force-destroy');
     Route::delete('{user}/remove-image', 'removeImage')->name('remove-image');
+});
+
+Route::group(['prefix' => 'roles', 'as' => 'roles.', 'controller' => RoleController::class], function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('create', 'create')->name('create');
+    Route::post('store', 'store')->name('store');
+    Route::get('trash', 'trash')->name('trash');
+    Route::get('{role}', 'show')->name('show');
+    Route::get('{role}/edit', 'edit')->name('edit');
+    Route::put('{role}/update', 'update')->name('update');
+    Route::patch('{role}/status', 'updateStatus')->name('status');
+    Route::delete('{role}/destroy', 'destroy')->name('destroy');
+    Route::post('{id}/restore', 'restore')->name('restore');
+    Route::delete('{id}/force-destroy', 'forceDestroy')->name('force-destroy');
 });

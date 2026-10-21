@@ -47,6 +47,7 @@
 
     </div>
 
+    <!-- @include('Projects.Sass.validation_errors') -->
 
     <div class="p-3 p-md-4">
 

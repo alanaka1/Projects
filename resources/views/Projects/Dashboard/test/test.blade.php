@@ -53,6 +53,8 @@
             </div>
         </div>
         
+        @include('Projects.Sass.session_fash_messages')
+
         <!-- Table -->
         <div class="table-responsive">
             <table id="ordersTable" class="table align-middle table-hover w-100 custom-table">
