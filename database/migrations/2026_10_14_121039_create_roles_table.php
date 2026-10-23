@@ -126,6 +126,15 @@ return new class extends Migration
                 'created_at'  => now(),
                 'updated_at'  => now(),
             ],[
+                'name'        => 'User Remove Image',
+                'slug'        => 'users.remove-image',
+                'module'      => 'users',
+                'action'      => 'remove-image',
+                'description' => 'حذف صورة المستخدم',
+                'status'      => 1,
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ],[
                 'name'        => 'User Status',
                 'slug'        => 'users.status',
                 'module'      => 'users',

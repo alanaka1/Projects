@@ -50,15 +50,29 @@
 
         <div class="dropdown">
             <button class="btn profile-button" data-bs-toggle="dropdown" type="button">
-                <img src="https://github.com/mdo.png" alt="profile">
-                <span class="d-none d-sm-inline">Mahmoud</span>
+                @if(auth()->user()->image)
+                <img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}" class="user-avatar" style="object-fit:cover;">
+                @else
+                    <div class="user-avatar bg-light d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-user {{ auth()->user()->gender === 'female' ? 'text-danger' : 'text-primary' }}"></i>
+                    </div>
+                @endif
+                <span class="d-none d-sm-inline">{{ auth()->user()->name }} {{ auth()->user()->surname }}</span>
                 <i class="fa-solid fa-chevron-down small"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end dashboard-dropdown">
                 <li><a class="dropdown-item" href="#"><i class="fa-regular fa-user me-2"></i>Profile</a></li>
                 <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i>Settings</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-arrow-right-from-bracket me-2"></i>Logout</a></li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST" class="m-0">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">
+                            <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                            @lang('Auth/login.view.logout')
+                        </button>
+                    </form>
+                </li>
             </ul>
         </div>
     </div>

@@ -10,13 +10,21 @@
         <button class="btn sidebar-close d-lg-none" id="sidebarClose" type="button"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <div class="sidebar-user">
-        <img src="https://github.com/mdo.png" alt="User" class="user-avatar">
-        <div class="user-info">
-        <strong>Mahmoud Amin</strong>
-        <span>Administrator</span>
+    @auth
+        <div class="sidebar-user">
+            @if(auth()->user()->image)
+                <img src="{{ asset(auth()->user()->image) }}" alt="{{ auth()->user()->name }}" class="user-avatar" style="object-fit:cover;">
+            @else
+                <div class="user-avatar bg-light d-flex align-items-center justify-content-center">
+                    <i class="fa-solid fa-user {{ auth()->user()->gender === 'female' ? 'text-danger' : 'text-primary' }}"></i>
+                </div>
+            @endif
+            <div class="user-info">
+                <strong>{{ auth()->user()->name }} {{ auth()->user()->surname }}</strong>
+                <span>{{ auth()->user()->hasRole('admin') ? __('Auth/users.modules.admin') : __('Auth/users.modules.user') }}</span>
+            </div>
         </div>
-    </div>
+    @endauth
 
     <nav class="sidebar-nav">
         <div class="nav-section-title">@lang('All.main')</div>
