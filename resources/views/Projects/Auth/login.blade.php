@@ -16,7 +16,6 @@
                 <i class="fa-solid fa-globe me-1"></i>
                 {{ match (app()->getLocale()) {
                     'ar' => 'العربية',
-                    <!-- 'tr' => 'Türkçe', -->
                     default => 'English',
                 } }}
                         </button>
