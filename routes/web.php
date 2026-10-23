@@ -11,6 +11,16 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+/********************************************************************************* 
+ * لإضافة لفة جديدة لازم تعدل هدول
+ * 
+ * 
+ *  routes/web.php
+ *  Middleware/SetLocale.php
+ *  View Dashboard
+ *  View Login
+**********************************************************************************/
+
 // تبديل اللغة للجميع.
 Route::get('language/{locale}', function (string $locale) {
     abort_unless(in_array($locale, ['ar', 'en'], true), 404);

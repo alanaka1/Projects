@@ -14,8 +14,12 @@
         <div class="dropdown">
             <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa-solid fa-globe me-1"></i>
-                {{ app()->getLocale() === 'ar' ? 'العربية' : 'English' }}
-            </button>
+                {{ match (app()->getLocale()) {
+                    'ar' => 'العربية',
+                    <!-- 'tr' => 'Türkçe', -->
+                    default => 'English',
+                } }}
+                        </button>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li><a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}" href="{{ route('language.switch', 'ar') }}">العربية</a></li>
                 <li><a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{{ route('language.switch', 'en') }}">English</a></li>
