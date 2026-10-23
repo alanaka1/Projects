@@ -1,7 +1,9 @@
-@if (in_array(app()->getLocale(), ['en', 'tr'], true))
+@if(in_array(app()->getLocale(), ['en', 'tr'], true))
 <!-- LTR -->
-<html lang="en" dir="ltr" data-bs-theme="light">
-@elseif(app()->getLocale() == 'ar')
+<html lang="{{ app()->getLocale() }}" dir="ltr" data-bs-theme="light">
+@elseif(in_array(app()->getLocale(), ['ar'], true))
 <!-- RTL -->
-<html lang="ar" dir="rtl" data-bs-theme="light">
+<html lang="{{ app()->getLocale() }}" dir="rtl" data-bs-theme="light">
+@else
+<html lang="{{ app()->getLocale() }}" dir="ltr" data-bs-theme="light">
 @endif

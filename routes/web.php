@@ -11,14 +11,14 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// // تبديل اللغة للجميع.
-// Route::get('language/{locale}', function (string $locale) {
-//     abort_unless(in_array($locale, ['ar', 'en'], true), 404);
+// تبديل اللغة للجميع.
+Route::get('language/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['ar', 'en'], true), 404);
 
-//     session()->put('locale', $locale);
+    session()->put('locale', $locale);
 
-//     return back();
-// })->name('language.switch');
+    return back();
+})->name('language.switch');
 
 // تسجيل الدخول للزوار.
 Route::group(['middleware' => 'guest', 'controller' => LoginController::class], function () {

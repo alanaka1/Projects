@@ -17,16 +17,16 @@
             </button>
 
             <ul class="dropdown-menu dropdown-menu-end dashboard-dropdown language-dropdown">
-                <li><h6 class="dropdown-header"><i class="fa-solid fa-globe me-2"></i>Direction</h6></li>
+                <li><h6 class="dropdown-header"><i class="fa-solid fa-globe me-2"></i>Language / اللغة</h6></li>
                 <li>
-                    <button class="dropdown-item direction-option" type="button" data-direction="ltr">
+                    <a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{{ route('language.switch', 'en') }}" lang="en">
                         <span class="flex-grow-1"><i class="fa-solid fa-globe me-2"></i><strong>English / LTR</strong></span>
-                    </button>
+                    </a>
                 </li>
                 <li>
-                    <button class="dropdown-item direction-option" type="button" data-direction="rtl">
+                    <a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}" href="{{ route('language.switch', 'ar') }}" lang="ar">
                         <span class="flex-grow-1"><i class="fa-solid fa-globe me-2"></i><strong>العربية / RTL</strong></span>
-                    </button>
+                    </a>
                 </li>
             </ul>
         </div>

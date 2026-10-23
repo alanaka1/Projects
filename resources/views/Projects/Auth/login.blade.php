@@ -17,8 +17,8 @@
                 {{ app()->getLocale() === 'ar' ? 'العربية' : 'English' }}
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item {//{ app()->getLocale() === 'ar' ? 'active' : '' }}" href="{//{ route('language.switch', 'ar') }}">العربية</a></li>
-                <li><a class="dropdown-item {//{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{//{ route('language.switch', 'en') }}">English</a></li>
+                <li><a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}" href="{{ route('language.switch', 'ar') }}">العربية</a></li>
+                <li><a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}" href="{{ route('language.switch', 'en') }}">English</a></li>
             </ul>
         </div>
     </div>
